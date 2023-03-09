@@ -3,7 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/luigi/AndroidStudioProjects/MobileAssignment/app/src/main/res/layout/activity_main.xml" value="0.5009057971014492" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/MobileAssignment/app/src/main/res/drawable/custom_loginbox.xml" value="0.227" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/MobileAssignment/app/src/main/res/drawable/ic_baseline_login_24.xml" value="0.242" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/MobileAssignment/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.4725" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/MobileAssignment/app/src/main/res/layout/activity_login_screen.xml" value="0.5" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/MobileAssignment/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/MobileAssignment/app/src/main/res/layout/fragment_dashboard.xml" value="0.5009057971014492" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/MobileAssignment/app/src/main/res/layout/fragment_notifications.xml" value="0.5009057971014492" />
       </map>
     </option>
   </component>
