@@ -14,10 +14,10 @@
         android:theme="@style/Theme.MobileAssignment"
         tools:targetApi="33">
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginScreen"
             android:exported="false" />
         <activity
-            android:name=".LoginScreen"
+            android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name">
             <intent-filter>
