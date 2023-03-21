@@ -11,7 +11,7 @@
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Mobile-Assignment/app/src/main/res/drawable/ic_launcher_background.xml" value="0.128" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Mobile-Assignment/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.1" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Mobile-Assignment/app/src/main/res/drawable/profile_icon.xml" value="0.212" />
-        <entry key="..\:/Users/luigi/AndroidStudioProjects/Mobile-Assignment/app/src/main/res/layout/activity_login_screen.xml" value="0.24166666666666667" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/Mobile-Assignment/app/src/main/res/layout/activity_login_screen.xml" value="0.5" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Mobile-Assignment/app/src/main/res/layout/activity_main.xml" value="0.5" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Mobile-Assignment/app/src/main/res/layout/fragment_dashboard.xml" value="0.24166666666666667" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Mobile-Assignment/app/src/main/res/layout/fragment_discover.xml" value="0.5234375" />
@@ -19,6 +19,7 @@
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Mobile-Assignment/app/src/main/res/layout/fragment_notifications.xml" value="0.24166666666666667" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Mobile-Assignment/app/src/main/res/layout/fragment_profile.xml" value="0.5234375" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Mobile-Assignment/app/src/main/res/layout/fragment_watchlist.xml" value="0.5" />
+        <entry key="..\:/Users/luigi/AndroidStudioProjects/Mobile-Assignment/app/src/main/res/layout/layout_discovercard.xml" value="0.5223958333333333" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Mobile-Assignment/app/src/main/res/layout/layout_item.xml" value="0.49166666666666664" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Mobile-Assignment/app/src/main/res/menu/bottom_nav_menu.xml" value="0.24166666666666667" />
         <entry key="..\:/Users/luigi/AndroidStudioProjects/Mobile-Assignment/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.212" />
