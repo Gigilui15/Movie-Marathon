@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobileassignment.R;
 import com.example.mobileassignment.databinding.FragmentWatchlistBinding;
-import com.example.mobileassignment.ui.ItemsAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 

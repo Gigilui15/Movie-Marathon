@@ -1,4 +1,4 @@
-package com.example.mobileassignment.ui;
+package com.example.mobileassignment.ui.Watchlist;
 
 import android.content.Context;
 import android.view.LayoutInflater;

@@ -1,6 +1,5 @@
 package com.example.mobileassignment.ui.Watchlist;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -16,7 +15,7 @@ public class WatchlistViewModel extends ViewModel {
 
     public MutableLiveData<List<String>> getItems() {
         ArrayList<String> notifications = new ArrayList<>();
-        for(int i =0; i < 20; i++){
+        for(int i =0; i < 10; i++){
             notifications.add("Movie " + (i+1));
         }
         items.setValue(notifications);
