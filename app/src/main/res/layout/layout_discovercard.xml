@@ -6,42 +6,34 @@
     android:layout_height="match_parent">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:clickable="true"
-        app:cardCornerRadius="40dp"
-
-        app:cardElevation="100dp">
+        app:cardElevation="100dp"
+        app:cardCornerRadius="30dp"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:minHeight="50dp"
-                android:text="Bohemian Rhapsody (2018)"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:src="@drawable/bohemian_rhapsody"
                 android:adjustViewBounds="true"
-                android:src="@drawable/bohemian_rhapsody" />
+                />
 
-            <Button
+            <TextView
+                android:text="Bohemian Rhapsody (2018)"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#388E3C"
-                android:text="Add Movie"
-                android:minHeight="70dp"
-                app:backgroundTint="#388E3C" />
+                android:layout_height="wrap_content"
+                android:minHeight="50dp" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

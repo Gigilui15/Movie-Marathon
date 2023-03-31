@@ -1,8 +1,5 @@
 package com.example.mobileassignment.ui.Discover;
 
-import android.view.LayoutInflater;
-import android.widget.TextView;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -10,7 +7,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.mobileassignment.API.ApiInterface;
 import com.example.mobileassignment.API.MovieResults;
-import com.example.mobileassignment.R;
 
 import java.util.List;
 
@@ -31,6 +27,7 @@ public class DiscoverViewModel extends ViewModel {
     private MutableLiveData<String> movieTitle = new MutableLiveData<>();
 
     public DiscoverViewModel() {
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
