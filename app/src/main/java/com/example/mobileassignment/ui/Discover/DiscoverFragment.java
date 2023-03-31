@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.example.mobileassignment.API.*;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.mobileassignment.API.ApiInterface;
@@ -31,11 +32,19 @@ public class DiscoverFragment extends Fragment {
     private TextView movieTextView;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        DiscoverViewModel dashboardViewModel = new ViewModelProvider(this).get(DiscoverViewModel.class);
+        DiscoverViewModel discoverViewModel = new ViewModelProvider(this).get(DiscoverViewModel.class);
         binding = FragmentDiscoverBinding.inflate(inflater, container, false);
 
         View root = binding.getRoot();
         movieTextView = root.findViewById(R.id.movies_discover);
+
+        discoverViewModel.getMovieTitle().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String title) {
+                movieTextView.setText(title);
+            }
+        });
+
         return root;
     }
 
