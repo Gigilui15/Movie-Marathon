@@ -21,11 +21,12 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/bohemian_rhapsody"
+                android:src="@drawable/poster_placeholder"
                 android:adjustViewBounds="true"
                 />
 
             <TextView
+                android:id="@+id/movie_title"
                 android:text="Bohemian Rhapsody (2018)"
                 android:gravity="center"
                 android:textSize="20sp"
@@ -33,7 +34,7 @@
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="50dp" />
+                android:minHeight="60dp" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

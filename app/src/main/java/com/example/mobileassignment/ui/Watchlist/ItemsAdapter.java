@@ -13,8 +13,7 @@ import com.example.mobileassignment.R;
 
 import java.util.List;
 
-public class ItemsAdapter extends
-        RecyclerView.Adapter<ItemsAdapter.ViewHolder> {
+public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> {
     private List<String> items;
     public ItemsAdapter(List<String> items) {
         this.items = items;

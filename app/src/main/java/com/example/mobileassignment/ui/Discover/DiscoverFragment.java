@@ -13,11 +13,15 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobileassignment.API.ApiInterface;
 import com.example.mobileassignment.R;
 import com.example.mobileassignment.databinding.FragmentDiscoverBinding;
+import com.example.mobileassignment.ui.Watchlist.ItemsAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -28,23 +32,19 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DiscoverFragment extends Fragment {
 
-    private FragmentDiscoverBinding binding;
-    private TextView movieTextView;
+    private @NonNull FragmentDiscoverBinding binding;
+    private DiscoverAdapter dAdapter;
+    private RecyclerView discoverView;
+    private DiscoverViewModel discoverViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        DiscoverViewModel discoverViewModel = new ViewModelProvider(this).get(DiscoverViewModel.class);
+        discoverViewModel = new ViewModelProvider(this).get(DiscoverViewModel.class);
         binding = FragmentDiscoverBinding.inflate(inflater, container, false);
 
         View root = binding.getRoot();
-        movieTextView = root.findViewById(R.id.movies_discover);
-
-        discoverViewModel.getMovieTitle().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(String title) {
-                movieTextView.setText(title);
-            }
-        });
-
+        discoverView = root.findViewById(R.id.movies_list);
+        setUpRecyclerView();
+        fetchItems();
         return root;
     }
 
@@ -52,5 +52,13 @@ public class DiscoverFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+    private void fetchItems() {
+        discoverViewModel.getMovies().observe(getViewLifecycleOwner(), movieList ->{dAdapter.updateMovies(movieList);});
+    }
+    private void setUpRecyclerView() {
+        dAdapter = new DiscoverAdapter(new ArrayList<>());
+        discoverView.setAdapter(dAdapter);
+        discoverView.setLayoutManager(new LinearLayoutManager(discoverView.getContext()));
     }
 }

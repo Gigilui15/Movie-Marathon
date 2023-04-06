@@ -10,6 +10,7 @@ import com.example.mobileassignment.API.MovieResults;
 
 import java.util.List;
 
+import kotlin.annotation.MustBeDocumented;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,14 +26,13 @@ public class DiscoverViewModel extends ViewModel {
     public static String CATEGORY = "popular";
 
     private MutableLiveData<String> movieTitle = new MutableLiveData<>();
+    private MutableLiveData<List<MovieResults.ResultsBean>>movieList = new MutableLiveData<>();
 
     public DiscoverViewModel() {
-
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-
         ApiInterface apiInterface = retrofit.create(ApiInterface.class);
         //build URL using constants
         Call<MovieResults> call = apiInterface.getMovies(CATEGORY,API_KEY,LANGUAGE,PAGE);
@@ -41,9 +41,12 @@ public class DiscoverViewModel extends ViewModel {
             public void onResponse(Call<MovieResults> call, Response<MovieResults> response) {
                 MovieResults results = response.body();
                 List<MovieResults.ResultsBean> ListOfMovies = results.getResults();
+                movieList.setValue(ListOfMovies);
+                /*
                 //getting the first movie in the list
                 MovieResults.ResultsBean firstMovie = ListOfMovies.get(0);
                 movieTitle.setValue(firstMovie.getTitle());
+                 */
             }
 
             @Override
@@ -51,6 +54,10 @@ public class DiscoverViewModel extends ViewModel {
                 t.printStackTrace();
             }
         });
+    }
+
+    public LiveData<List<MovieResults.ResultsBean>>getMovies(){
+        return movieList;
     }
 
     public LiveData<String> getMovieTitle() {
