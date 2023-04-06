@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.Discover.DiscoverFragment">
+    tools:context=".ui.Discover.DiscoverFragment"
+    android:layout_marginTop="50dp"
+    >
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/movies_list"
@@ -15,6 +17,8 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0"
+        android:background="#363636"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
