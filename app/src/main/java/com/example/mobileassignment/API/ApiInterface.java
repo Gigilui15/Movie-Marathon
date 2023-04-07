@@ -7,6 +7,14 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiInterface {
+    String API_KEY = "1bde390d4ef9fe09e434ab3569042f63";
+    String BASE_URL = "https://api.themoviedb.org";
+    String POSTER_BASE_URL = "https://image.tmdb.org/t/p/w342/";
+
+    int PAGE = 1;
+    String LANGUAGE = "en-US";
+    String CATEGORY = "popular";
+
     //https://api.themoviedb.org/3/trending/all/day?api_key=1bde390d4ef9fe09e434ab3569042f63&language=en&page=1
 
     @GET("/3/movie/{category}")

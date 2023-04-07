@@ -1,6 +1,7 @@
 package com.example.mobileassignment.ui.Discover;
 
 import android.content.Context;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -11,11 +12,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mobileassignment.API.ApiInterface;
 import com.example.mobileassignment.API.MovieResults;
 import com.example.mobileassignment.R;
 import com.example.mobileassignment.ui.Watchlist.ItemsAdapter;
 
 import java.util.List;
+
+import coil.Coil;
+import coil.ImageLoader;
+import coil.request.ImageRequest;
+import coil.transform.RoundedCornersTransformation;
 
 public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHolder> {
 
@@ -39,6 +46,15 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
         MovieResults.ResultsBean mv = movies.get(position);
         TextView primaryTextView = holder.primaryTextView;
         primaryTextView.setText(mv.getTitle());
+
+        ImageRequest request = new ImageRequest.Builder(holder.itemView.getContext())
+                .data(ApiInterface.POSTER_BASE_URL + mv.getPoster_path())
+                .placeholder(R.drawable.poster_placeholder) // add a placeholder image if needed
+                .error(R.drawable.poster_placeholder)
+                .transformations(new RoundedCornersTransformation(25))// add an error image if needed
+                .target(holder.posterImage)
+                .build();
+        holder.imageLoader.enqueue(request);
     }
 
     @Override
@@ -48,9 +64,14 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView primaryTextView;
+        public ImageView posterImage;
+        public ImageLoader imageLoader;
+
         public ViewHolder(final View discoverView) {
             super(discoverView);
-            primaryTextView = (TextView) discoverView.findViewById(R.id.movie_title);
+            primaryTextView = discoverView.findViewById(R.id.movie_title);
+            posterImage = discoverView.findViewById(R.id.movie_poster);
+            imageLoader = Coil.imageLoader(discoverView.getContext());
         }
     }
 
