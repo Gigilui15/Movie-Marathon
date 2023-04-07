@@ -1,6 +1,7 @@
 package com.example.mobileassignment.ui.Discover;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -14,8 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobileassignment.API.ApiInterface;
 import com.example.mobileassignment.API.MovieResults;
+import com.example.mobileassignment.MovieDetails;
 import com.example.mobileassignment.R;
-import com.example.mobileassignment.ui.Watchlist.ItemsAdapter;
 
 import java.util.List;
 
@@ -81,6 +82,21 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
             date = discoverView.findViewById(R.id.movie_release);
             posterImage = discoverView.findViewById(R.id.movie_poster);
             imageLoader = Coil.imageLoader(discoverView.getContext());
+
+            discoverView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Get the selected movie
+                    MovieResults.ResultsBean selectedMovie = movies.get(getAdapterPosition());
+
+                    // Create an Intent to launch the MovieDetails activity
+                    Intent intent = new Intent(v.getContext(), MovieDetails.class);
+                    intent.putExtra("movie_id", selectedMovie.getId());
+
+                    // Launch the activity
+                    v.getContext().startActivity(intent);
+                }
+            });
         }
     }
 

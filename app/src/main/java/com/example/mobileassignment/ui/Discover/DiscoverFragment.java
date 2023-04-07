@@ -19,7 +19,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mobileassignment.API.ApiInterface;
 import com.example.mobileassignment.R;
 import com.example.mobileassignment.databinding.FragmentDiscoverBinding;
-import com.example.mobileassignment.ui.Watchlist.ItemsAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
