@@ -46,6 +46,11 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
         MovieResults.ResultsBean mv = movies.get(position);
         TextView primaryTextView = holder.primaryTextView;
         primaryTextView.setText(mv.getTitle());
+        TextView rating = holder.rating;
+        double voteAverage = mv.getVote_average();
+        rating.setText(String.valueOf(voteAverage));
+        TextView date = holder.date ;
+        date.setText(mv.getRelease_date());
 
         ImageRequest request = new ImageRequest.Builder(holder.itemView.getContext())
                 .data(ApiInterface.POSTER_BASE_URL + mv.getPoster_path())
@@ -64,12 +69,16 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView primaryTextView;
+        public TextView rating;
+        public TextView date;
         public ImageView posterImage;
         public ImageLoader imageLoader;
 
         public ViewHolder(final View discoverView) {
             super(discoverView);
             primaryTextView = discoverView.findViewById(R.id.movie_title);
+            rating = discoverView.findViewById(R.id.movie_rate);
+            date = discoverView.findViewById(R.id.movie_release);
             posterImage = discoverView.findViewById(R.id.movie_poster);
             imageLoader = Coil.imageLoader(discoverView.getContext());
         }

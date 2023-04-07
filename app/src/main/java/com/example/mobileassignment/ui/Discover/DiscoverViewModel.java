@@ -18,8 +18,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DiscoverViewModel extends ViewModel {
-
-    private MutableLiveData<String> movieTitle = new MutableLiveData<>();
     private MutableLiveData<List<MovieResults.ResultsBean>>movieList = new MutableLiveData<>();
 
     public DiscoverViewModel() {
@@ -50,7 +48,4 @@ public class DiscoverViewModel extends ViewModel {
         return movieList;
     }
 
-    public LiveData<String> getMovieTitle() {
-        return movieTitle;
-    }
 }
