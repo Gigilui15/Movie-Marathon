@@ -45,7 +45,7 @@
         android:layout_width="190dp"
         android:layout_height="280dp"
         android:layout_marginLeft="20dp"
-        android:src="@drawable/bohemian_rhapsody"
+        android:src="@drawable/poster_placeholder"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
