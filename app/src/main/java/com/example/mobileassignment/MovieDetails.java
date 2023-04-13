@@ -6,8 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.example.mobileassignment.API.MovieResults;
+
 public class MovieDetails extends AppCompatActivity {
 
+    MovieResults.ResultsBean movie;
     private TextView movie_title;
     private TextView movie_description;
 
@@ -19,6 +22,10 @@ public class MovieDetails extends AppCompatActivity {
         movie_description = findViewById(R.id.description);
 
         //get the Intent
+        Intent intent = getIntent();
+        movie = (MovieResults.ResultsBean) intent.getSerializableExtra("movie");
+        movie_title.setText(movie.getTitle());
+        movie_description.setText(movie.getOverview());
         //get the Serializable object Movie(id) which has been clicked on
         //populate the Views with the appropriate Data
     }

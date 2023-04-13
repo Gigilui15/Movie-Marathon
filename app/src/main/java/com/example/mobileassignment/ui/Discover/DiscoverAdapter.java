@@ -19,6 +19,7 @@ import com.example.mobileassignment.MovieDetails;
 import com.example.mobileassignment.R;
 import com.example.mobileassignment.ui.Watchlist.ItemsAdapter;
 
+import java.io.Serializable;
 import java.util.List;
 
 import coil.Coil;
@@ -92,7 +93,7 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
 
                     // Create an Intent to launch the MovieDetails activity
                     Intent intent = new Intent(v.getContext(), MovieDetails.class);
-                    intent.putExtra("movie_id", selectedMovie.getId());
+                    intent.putExtra("movie", (Serializable) selectedMovie);
 
                     // Launch the activity
                     v.getContext().startActivity(intent);

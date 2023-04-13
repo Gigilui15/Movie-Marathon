@@ -1,8 +1,9 @@
 package com.example.mobileassignment.API;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class MovieResults {
+public class MovieResults implements Serializable {
     //Generated using GSONFormatter Extension
 
     private int page;
@@ -42,7 +43,7 @@ public class MovieResults {
         this.results = results;
     }
 
-    public static class ResultsBean {
+    public static class ResultsBean implements Serializable{
 
         private boolean adult;
         private String backdrop_path;
