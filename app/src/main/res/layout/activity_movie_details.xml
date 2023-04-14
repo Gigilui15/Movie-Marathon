@@ -18,8 +18,8 @@
 
         <ImageView
             android:id="@+id/backdrop"
-            android:layout_width="match_parent"
-            android:layout_height="350dp"
+            android:layout_width="404dp"
+            android:layout_height="322dp"
             android:alpha="0.1"
             android:scaleType="centerCrop"
             android:src="@drawable/poster_placeholder"
@@ -130,13 +130,14 @@
 
     <TextView
         android:id="@+id/description"
-        android:layout_width="283dp"
-        android:layout_height="196dp"
+        android:layout_width="334dp"
+        android:layout_height="170dp"
         android:text="Movie Details"
         android:textColor="@color/white"
         android:textSize="14dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dataCard"
         app:layout_constraintVertical_bias="0.953" />
