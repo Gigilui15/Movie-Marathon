@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,6 +24,8 @@ public class MovieDetails extends AppCompatActivity {
     private ImageView movie_backdrop;
     private TextView movie_title;
     private TextView movie_description;
+    private TextView language;
+    private TextView popularity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +35,8 @@ public class MovieDetails extends AppCompatActivity {
         movie_backdrop = findViewById(R.id.backdrop);
         movie_title = findViewById(R.id.title_movie);
         movie_description = findViewById(R.id.description);
+        language = findViewById(R.id.lan);
+        popularity = findViewById(R.id.pop);
 
         //get the Intent
         Intent intent = getIntent();
@@ -39,6 +44,9 @@ public class MovieDetails extends AppCompatActivity {
 
         movie_title.setText(movie.getTitle());
         movie_description.setText(movie.getOverview());
+        language.setText(movie.getOriginal_language());
+        popularity.setText(String.valueOf(movie.getPopularity()));
+        Log.d("MovieDetails", "Media type: " + movie.getPopularity());
 
         // Load the image using Coil image loading library
         imageLoader = Coil.imageLoader(MovieDetails.this);
