@@ -30,7 +30,6 @@ public class MovieDetails extends AppCompatActivity {
     private TextView movie_description;
     private TextView language;
     private TextView popularity;
-    private Button addButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
