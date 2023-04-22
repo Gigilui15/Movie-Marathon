@@ -1,11 +1,15 @@
 package com.example.mobileassignment.Database;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
 import com.example.mobileassignment.API.MovieResults;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class User {
+public class User implements Serializable {
     private String fullName;
     private String username;
     private String password;

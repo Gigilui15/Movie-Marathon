@@ -86,6 +86,45 @@ public class UserDbHelper extends SQLiteOpenHelper {
         return id;
     }
 
+    public User getUser(String username, String password) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String[] projection = {
+                COLUMN_NAME,
+                COLUMN_USERNAME,
+                COLUMN_PASSWORD
+        };
+
+        String selection = COLUMN_USERNAME + " = ? AND " + COLUMN_PASSWORD + " = ?";
+        String[] selectionArgs = {username, password};
+
+        Cursor cursor = db.query(
+                TABLE_NAME,       // The table to query
+                projection,       // The array of columns to return (pass null to get all)
+                selection,        // The columns for the WHERE clause
+                selectionArgs,    // The values for the WHERE clause
+                null,             // don't group the rows
+                null,             // don't filter by row groups
+                null              // don't sort the order
+        );
+
+        User user = null;
+
+        if (cursor.moveToFirst()) {
+            String fullName = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME));
+            String retrievedUsername = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USERNAME));
+            String retrievedPassword = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PASSWORD));
+
+            user = new User(fullName, retrievedUsername, retrievedPassword);
+        }
+
+        cursor.close();
+        db.close();
+
+        return user;
+    }
+
+
     public static String getTableName() {
         return TABLE_NAME;
     }
