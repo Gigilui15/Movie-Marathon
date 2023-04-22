@@ -44,6 +44,7 @@
             app:layout_constraintVertical_bias="0.387" />
 
         <TextView
+            android:id="@+id/full_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Luigi Naudi"
@@ -63,8 +64,6 @@
         android:layout_width="366dp"
         android:layout_height="384dp"
         android:layout_marginTop="12dp"
-        android:background="#684967"
-        app:spanCount="3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

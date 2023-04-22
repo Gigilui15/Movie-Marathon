@@ -5,19 +5,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mobileassignment.API.ApiInterface;
 import com.example.mobileassignment.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import coil.Coil;
+import coil.ImageLoader;
+import coil.request.ImageRequest;
+import coil.transform.RoundedCornersTransformation;
+
 public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHolder> {
-    private List<String> items;
-    public ProfileAdapter(List<String> items) {
-        this.items = items;
-    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -26,35 +30,21 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
         View itemView = inflater.inflate(R.layout.profilecard, parent, false);
         return new ViewHolder(itemView);
     }
+
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position)
-    {
-        String item = items.get(position);
+    public void onBindViewHolder(@NonNull ProfileAdapter.ViewHolder holder, int position) {
+
     }
+
     @Override
     public int getItemCount() {
-        return items.size();
+        return 0;
     }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public ImageView posterImageView;
-
-        public ViewHolder(final View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            posterImageView = (ImageView)
-                    itemView.findViewById(R.id.movie_poster);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    itemOnClick();
-                }
-            });
-        }
-
-        public void itemOnClick() {
-
         }
     }
-}
-
+    }

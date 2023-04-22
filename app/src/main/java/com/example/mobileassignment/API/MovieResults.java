@@ -26,6 +26,20 @@ public class MovieResults implements Serializable {
         private double popularity;
         private String release_date;
         private double vote_average;
+
+        public ResultsBean(String backdrop_path, int id, String title, String original_language, String overview, String poster_path, double popularity, String release_date, double vote_average, boolean inList) {
+            this.backdrop_path = backdrop_path;
+            this.id = id;
+            this.title = title;
+            this.original_language = original_language;
+            this.overview = overview;
+            this.poster_path = poster_path;
+            this.popularity = popularity;
+            this.release_date = release_date;
+            this.vote_average = vote_average;
+            this.inList = inList;
+        }
+
         //Adding my own variable
         private boolean inList = false;
 
@@ -43,10 +57,6 @@ public class MovieResults implements Serializable {
 
         public int getId() {
             return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
         }
 
         public String getTitle() {

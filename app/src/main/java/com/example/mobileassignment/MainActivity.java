@@ -1,10 +1,12 @@
 package com.example.mobileassignment;
 
+import android.content.ContentValues;
 import android.os.Bundle;
 import android.widget.TextView;
 
 import com.example.mobileassignment.API.ApiInterface;
 import com.example.mobileassignment.API.MovieResults;
+import com.example.mobileassignment.Database.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;

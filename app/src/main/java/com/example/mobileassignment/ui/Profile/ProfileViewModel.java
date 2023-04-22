@@ -1,26 +1,25 @@
 package com.example.mobileassignment.ui.Profile;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.example.mobileassignment.API.ApiInterface;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ProfileViewModel extends ViewModel {
 
-    private MutableLiveData<List<String>> test;
-
     public ProfileViewModel() {
-        test = new MutableLiveData<>();
-    }
-
-    public MutableLiveData<List<String>> getItems() {
-        ArrayList<String> movies = new ArrayList<>();
-        for(int i =0; i < 9; i++){
-            movies.add("Movie " + (i+1));
-        }
-        test.setValue(movies);
-        return test;
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApiInterface.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
     }
 }

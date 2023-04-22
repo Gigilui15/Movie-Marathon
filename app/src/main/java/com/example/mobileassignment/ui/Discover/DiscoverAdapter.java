@@ -21,7 +21,6 @@ import com.example.mobileassignment.API.ApiInterface;
 import com.example.mobileassignment.API.MovieResults;
 import com.example.mobileassignment.MovieDetails;
 import com.example.mobileassignment.R;
-import com.example.mobileassignment.ui.Watchlist.ItemsAdapter;
 
 import java.io.Serializable;
 import java.util.List;

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/loginbk"
-    tools:context=".LoginScreen">
+>
 
     <ImageView
         android:id="@+id/imageView"
@@ -35,30 +35,41 @@
             android:padding="24dp">
 
             <TextView
-                android:id="@+id/loginText"
+                android:id="@+id/Rregister"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Login"
+                android:text="Create Your Account"
                 android:textAlignment="center"
                 android:textColor="@color/purple_500"
-                android:textSize="36sp"
-                android:textStyle="bold" />
+                android:textSize="27sp"
+                android:textStyle="bold"
+                android:layout_margin="10dp"
+                />
 
             <EditText
-                android:id="@+id/username"
+                android:id="@+id/Rfullname"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="40dp"
+                android:layout_margin="10dp"
+                android:hint="Full Name"
+                android:padding="8dp"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/Rusername"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
                 android:drawablePadding="8dp"
                 android:hint="Username"
                 android:padding="8dp"
                 android:textColor="@color/black" />
 
             <EditText
-                android:id="@+id/password"
+                android:id="@+id/Rpassword"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="20dp"
+                android:layout_margin="10dp"
                 android:drawablePadding="8dp"
                 android:hint="Password"
                 android:inputType="textPassword"
@@ -66,28 +77,16 @@
                 android:textColor="@color/black" />
 
             <Button
-                android:id="@+id/loginButton"
+                android:id="@+id/registerButton"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="30dp"
                 android:backgroundTint="@color/purple_600"
-                android:onClick="loginButton"
-                android:text="Login"
+                android:onClick="registerClick"
+                android:text="Register"
                 android:textSize="18sp"
                 app:cornerRadius="20dp" />
 
-            <TextView
-                android:id="@+id/register"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Create a new Account"
-                android:textColor="@color/purple_500"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:onClick="goToRegister"
-                android:layout_marginTop="10dp"
-                android:textAlignment="center"
-                />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </GridLayout>
