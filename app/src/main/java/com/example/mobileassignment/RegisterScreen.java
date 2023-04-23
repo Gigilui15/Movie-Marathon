@@ -49,9 +49,12 @@ public class RegisterScreen extends AppCompatActivity {
             long id = dbHelper.addUser(user);
             Toast.makeText(this, "Account Created", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra("ID", id);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("user", user);
+            intent.putExtras(bundle);
             startActivity(intent);
         }
     }
+
 
 }

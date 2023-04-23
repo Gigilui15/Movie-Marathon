@@ -23,7 +23,7 @@ public class UserDbHelper extends SQLiteOpenHelper {
     private static final String COLUMN_NAME = "name";
     private static final String COLUMN_USERNAME = "username";
     private static final String COLUMN_PASSWORD = "password";
-    private static final String COLUMN_FAVE = "fave";
+    private static final String COLUMN_LIST = "fave";
 
     public UserDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -35,7 +35,7 @@ public class UserDbHelper extends SQLiteOpenHelper {
                 " (" + COLUMN_NAME + " TEXT, " +
                 COLUMN_USERNAME + " TEXT, " +
                 COLUMN_PASSWORD + " TEXT, " +
-                COLUMN_FAVE + " BLOB);";
+                COLUMN_LIST + " BLOB);";
         db.execSQL(query);
     }
 
@@ -48,7 +48,7 @@ public class UserDbHelper extends SQLiteOpenHelper {
     public long addUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        // Serialize the fave ArrayList as a BLOB data
+        // Serialize the ArrayList as a BLOB data
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutput out = null;
         byte[] faveBytes = null;
@@ -80,7 +80,7 @@ public class UserDbHelper extends SQLiteOpenHelper {
         values.put(COLUMN_PASSWORD, user.getPassword());
 
         String marathonString = TextUtils.join(",", user.getMarathon());
-        values.put(COLUMN_FAVE, marathonString);
+        values.put(COLUMN_LIST, marathonString);
         long id = db.insert(TABLE_NAME, null, values);
         db.close();
         return id;
@@ -141,7 +141,7 @@ public class UserDbHelper extends SQLiteOpenHelper {
         return COLUMN_PASSWORD;
     }
 
-    public static String getColumnFave() {
-        return COLUMN_FAVE;
+    public static String getColumnList() {
+        return COLUMN_LIST;
     }
 }

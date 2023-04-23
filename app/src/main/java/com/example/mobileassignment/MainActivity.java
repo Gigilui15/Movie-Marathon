@@ -1,6 +1,7 @@
 package com.example.mobileassignment;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -28,6 +29,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,5 +42,13 @@ public class MainActivity extends AppCompatActivity {
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(R.id.navigation_dashboard, R.id.navigation_profile).build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+        Bundle bundle = this.getIntent().getExtras();
+        user = (User) bundle.getSerializable("user");
     }
+
+    public User getUser() {
+        return user;
+    }
+
 }

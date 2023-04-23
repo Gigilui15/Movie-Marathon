@@ -19,6 +19,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobileassignment.API.ApiInterface;
 import com.example.mobileassignment.API.MovieResults;
+import com.example.mobileassignment.Database.User;
+import com.example.mobileassignment.Database.backend.MovieDbHelper;
+import com.example.mobileassignment.MainActivity;
 import com.example.mobileassignment.MovieDetails;
 import com.example.mobileassignment.R;
 
@@ -90,7 +93,7 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
             imageLoader = Coil.imageLoader(discoverView.getContext());
             addButton = discoverView.findViewById(R.id.add_button);
 
-            //Movie Card's Click Function
+            //Movie Card opening Movie Details
             discoverView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -109,25 +112,12 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
             addButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    MovieDbHelper movieDB = new MovieDbHelper(discoverView.getContext());
                     MovieResults.ResultsBean selectedMovie = movies.get(getAdapterPosition());
-                    //Checking the correct Movie ID is logged when clicked
-                    String id = String.valueOf(+selectedMovie.getId());
-                    Log.d("Movie ID:", id);
-                    String message;
-                    if(!selectedMovie.getIsInList()){
-                        //Add to List + Change to Orange
-                        addButton.setText("Remove");
-                        addButton.setBackgroundColor(Color.RED);
-                        message = ("Added " +selectedMovie.getTitle());
-                        selectedMovie.setInList(true);
-                    }
-                    else{
-                        addButton.setText("Add To list");
-                        addButton.setBackgroundColor(0xFF388E3C);
-                        message = ("Removed " +selectedMovie.getTitle());
-                        selectedMovie.setInList(false);
-                    }
-                    Toast.makeText(v.getContext(), message, Toast.LENGTH_SHORT).show();
+                    //add the movie to the movie database
+                    movieDB.addMovie(selectedMovie);
+                    //add the movie ID to the User Marathon List
+
                 }
             });
         }

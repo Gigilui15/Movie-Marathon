@@ -75,6 +75,42 @@ public class MovieResults implements Serializable {
             return poster_path;
         }
 
+        public void setBackdrop_path(String backdrop_path) {
+            this.backdrop_path = backdrop_path;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public void setOriginal_language(String original_language) {
+            this.original_language = original_language;
+        }
+
+        public void setOverview(String overview) {
+            this.overview = overview;
+        }
+
+        public void setPoster_path(String poster_path) {
+            this.poster_path = poster_path;
+        }
+
+        public void setPopularity(double popularity) {
+            this.popularity = popularity;
+        }
+
+        public void setRelease_date(String release_date) {
+            this.release_date = release_date;
+        }
+
+        public void setVote_average(double vote_average) {
+            this.vote_average = vote_average;
+        }
+
         public double getPopularity() {
             return popularity;
         }

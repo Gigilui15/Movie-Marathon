@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobileassignment.API.ApiInterface;
+import com.example.mobileassignment.Database.User;
+import com.example.mobileassignment.MainActivity;
 import com.example.mobileassignment.R;
 import com.example.mobileassignment.databinding.FragmentDiscoverBinding;
 
@@ -32,6 +34,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DiscoverFragment extends Fragment {
 
+    private User user;
+    private MainActivity mainActivity;
     private @NonNull FragmentDiscoverBinding binding;
     private DiscoverAdapter dAdapter;
     private RecyclerView discoverView;
@@ -42,6 +46,7 @@ public class DiscoverFragment extends Fragment {
         binding = FragmentDiscoverBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         discoverView = root.findViewById(R.id.movies_list);
+        user = ((MainActivity) requireActivity()).getUser();
         setUpRecyclerView();
         fetchItems();
         return root;
