@@ -10,7 +10,7 @@ public interface ApiInterface {
     String BASE_URL = "https://api.themoviedb.org";
     String POSTER_BASE_URL = "https://image.tmdb.org/t/p/w342/";
     String BACKDROP_BASE_URL = "https://image.tmdb.org/t/p/w500/";
-    int PAGE = 4;
+    int PAGE = 1;
     String LANGUAGE = "en-US";
     String CATEGORY = "popular";
 

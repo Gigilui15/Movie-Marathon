@@ -31,9 +31,9 @@ public class UserDbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String query = "CREATE TABLE " + TABLE_NAME +
-                " (" + COLUMN_NAME + " TEXT, " +
-                COLUMN_USERNAME + " TEXT, " +
-                COLUMN_PASSWORD + " TEXT, " +
+                " (" + COLUMN_NAME + " TEXT," +
+                COLUMN_USERNAME + " TEXT," +
+                COLUMN_PASSWORD + " TEXT," +
                 COLUMN_LIST + " BLOB);";
         db.execSQL(query);
     }
@@ -117,9 +117,11 @@ public class UserDbHelper extends SQLiteOpenHelper {
             String marathonString = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_LIST));
 
             ArrayList<Integer> marathon = new ArrayList<>();
-            String[] marathonArray = marathonString.split(",");
-            for (String time : marathonArray) {
-                marathon.add(Integer.parseInt(time));
+            if (!marathonString.isEmpty()) {
+                String[] marathonArray = marathonString.split(",");
+                for (String time : marathonArray) {
+                    marathon.add(Integer.parseInt(time));
+                }
             }
 
             user = new User(fullName, retrievedUsername, retrievedPassword, marathon);
