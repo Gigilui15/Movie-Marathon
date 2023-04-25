@@ -70,6 +70,7 @@ public class MovieDbHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+
     public String getTableName() {
         return TABLE_NAME;
     }

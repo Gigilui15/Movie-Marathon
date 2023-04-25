@@ -41,13 +41,15 @@ public class LoginScreen extends AppCompatActivity {
             Toast.makeText(this, "Please Fill All Fields", Toast.LENGTH_SHORT).show();
         } else {
             UserDbHelper dbHelper = new UserDbHelper(this);
-            User user_profile = dbHelper.getUser(username, password);
-            if (user_profile == null) {
+            User user = dbHelper.getUser(username, password);
+            if (user == null) {
                 Toast.makeText(this, "Incorrect username or password", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "Login success", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this, MainActivity.class);
-                intent.putExtra("user", user_profile);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("user", user);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         }

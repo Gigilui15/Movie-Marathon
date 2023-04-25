@@ -22,6 +22,13 @@ public class User implements Serializable {
         this.marathon = new ArrayList<Integer>();
     }
 
+    public User(String fullName, String username, String password, ArrayList<Integer> marathon) {
+        this.fullName = fullName;
+        this.username = username;
+        this.password = password;
+        this.marathon = marathon;
+    }
+
     public String getUsername() {
         return username;
     }

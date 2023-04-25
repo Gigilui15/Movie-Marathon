@@ -34,12 +34,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DiscoverFragment extends Fragment {
 
-    private User user;
-    private MainActivity mainActivity;
     private @NonNull FragmentDiscoverBinding binding;
     private DiscoverAdapter dAdapter;
     private RecyclerView discoverView;
     private DiscoverViewModel discoverViewModel;
+    private User user;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         discoverViewModel = new ViewModelProvider(this).get(DiscoverViewModel.class);
@@ -61,7 +60,7 @@ public class DiscoverFragment extends Fragment {
         discoverViewModel.getMovies().observe(getViewLifecycleOwner(), movieList ->{dAdapter.updateMovies(movieList);});
     }
     private void setUpRecyclerView() {
-        dAdapter = new DiscoverAdapter(new ArrayList<>());
+        dAdapter = new DiscoverAdapter(new ArrayList<>(), user);
         discoverView.setAdapter(dAdapter);
         discoverView.setLayoutManager(new LinearLayoutManager(discoverView.getContext()));
     }

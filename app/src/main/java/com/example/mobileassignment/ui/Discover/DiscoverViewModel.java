@@ -34,7 +34,6 @@ public class DiscoverViewModel extends ViewModel {
                 MovieResults results = response.body();
                 List<MovieResults.ResultsBean> ListOfMovies = results.getResults();
                 movieList.setValue(ListOfMovies);
-
             }
 
             @Override

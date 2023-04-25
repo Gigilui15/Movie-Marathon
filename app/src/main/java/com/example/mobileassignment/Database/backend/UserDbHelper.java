@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.provider.BaseColumns;
 import android.text.TextUtils;
 
 import com.example.mobileassignment.Database.User;
@@ -92,7 +91,8 @@ public class UserDbHelper extends SQLiteOpenHelper {
         String[] projection = {
                 COLUMN_NAME,
                 COLUMN_USERNAME,
-                COLUMN_PASSWORD
+                COLUMN_PASSWORD,
+                COLUMN_LIST
         };
 
         String selection = COLUMN_USERNAME + " = ? AND " + COLUMN_PASSWORD + " = ?";
@@ -114,8 +114,15 @@ public class UserDbHelper extends SQLiteOpenHelper {
             String fullName = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME));
             String retrievedUsername = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USERNAME));
             String retrievedPassword = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PASSWORD));
+            String marathonString = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_LIST));
 
-            user = new User(fullName, retrievedUsername, retrievedPassword);
+            ArrayList<Integer> marathon = new ArrayList<>();
+            String[] marathonArray = marathonString.split(",");
+            for (String time : marathonArray) {
+                marathon.add(Integer.parseInt(time));
+            }
+
+            user = new User(fullName, retrievedUsername, retrievedPassword, marathon);
         }
 
         cursor.close();
@@ -123,6 +130,50 @@ public class UserDbHelper extends SQLiteOpenHelper {
 
         return user;
     }
+
+
+
+    public void updateUser(User user){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Serialize the ArrayList as a BLOB data
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ObjectOutput out = null;
+        byte[] faveBytes = null;
+
+        try {
+            out = new ObjectOutputStream(bos);
+            out.writeObject(user.getMarathon());
+            faveBytes = bos.toByteArray();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+                bos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NAME, user.getFullName());
+        values.put(COLUMN_USERNAME, user.getUsername());
+        values.put(COLUMN_PASSWORD, user.getPassword());
+
+        String marathonString = TextUtils.join(",", user.getMarathon());
+        values.put(COLUMN_LIST, marathonString);
+
+        String selection = COLUMN_USERNAME + " = ? AND " + COLUMN_PASSWORD + " = ?";
+        String[] selectionArgs = {user.getUsername(), user.getPassword()};
+
+        db.update(TABLE_NAME, values, selection, selectionArgs);
+
+        db.close();
+    }
+
 
 
     public static String getTableName() {

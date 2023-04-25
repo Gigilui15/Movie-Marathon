@@ -21,11 +21,14 @@ import com.example.mobileassignment.API.ApiInterface;
 import com.example.mobileassignment.API.MovieResults;
 import com.example.mobileassignment.Database.User;
 import com.example.mobileassignment.Database.backend.MovieDbHelper;
+import com.example.mobileassignment.Database.backend.UserDbHelper;
 import com.example.mobileassignment.MainActivity;
 import com.example.mobileassignment.MovieDetails;
 import com.example.mobileassignment.R;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 import coil.Coil;
@@ -36,9 +39,14 @@ import coil.transform.RoundedCornersTransformation;
 public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHolder> {
 
     private List<MovieResults.ResultsBean> movies;
+    private MainActivity mainActivity;
+    private User user;
+    ArrayList<Integer> marathon;
 
-    public DiscoverAdapter(List<MovieResults.ResultsBean> movies) {
+    public DiscoverAdapter(List<MovieResults.ResultsBean> movies, User user) {
         this.movies = movies;
+        this.user = user;
+        this.marathon = user.getMarathon();
     }
 
     @NonNull
@@ -103,7 +111,6 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
                     // Create an Intent to launch the MovieDetails activity
                     Intent intent = new Intent(v.getContext(), MovieDetails.class);
                     intent.putExtra("movie", (Serializable) selectedMovie);
-
                     // Launch the activity
                     v.getContext().startActivity(intent);
                 }
@@ -113,11 +120,16 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
                 @Override
                 public void onClick(View v) {
                     MovieDbHelper movieDB = new MovieDbHelper(discoverView.getContext());
+                    UserDbHelper userDB = new UserDbHelper(discoverView.getContext());
                     MovieResults.ResultsBean selectedMovie = movies.get(getAdapterPosition());
                     //add the movie to the movie database
                     movieDB.addMovie(selectedMovie);
                     //add the movie ID to the User Marathon List
-
+                    Log.d("marathon",marathon.toString());
+                    marathon.add(selectedMovie.getId());
+                    user.setMarathon(marathon);
+                    userDB.updateUser(user);
+                    Log.d("marathon",marathon.toString());
                 }
             });
         }

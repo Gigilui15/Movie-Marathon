@@ -56,5 +56,4 @@ public class RegisterScreen extends AppCompatActivity {
         }
     }
 
-
 }

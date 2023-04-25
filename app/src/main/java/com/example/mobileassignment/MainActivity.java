@@ -17,6 +17,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.mobileassignment.databinding.ActivityMainBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -34,7 +35,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Bundle bundle = this.getIntent().getExtras();
+        user = (User) bundle.getSerializable("user");
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -43,12 +45,11 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-        Bundle bundle = this.getIntent().getExtras();
-        user = (User) bundle.getSerializable("user");
     }
 
     public User getUser() {
+        Bundle bundle = this.getIntent().getExtras();
+        user = (User) bundle.getSerializable("user");
         return user;
     }
-
 }
