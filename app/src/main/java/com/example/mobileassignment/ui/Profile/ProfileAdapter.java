@@ -44,8 +44,14 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ProfileAdapter.ViewHolder holder, int position) {
         MovieResults.ResultsBean movie = marathon.get(position);
-        TextView marathon_movie = holder.marathon_movie;
-        marathon_movie.setText(movie.getTitle());
+
+        ImageRequest request = new ImageRequest.Builder(holder.itemView.getContext())
+                .data(ApiInterface.POSTER_BASE_URL + movie.getPoster_path())
+                .placeholder(R.drawable.poster_placeholder) // add a placeholder image if needed
+                .error(R.drawable.poster_placeholder)
+                .target(holder.profile_poster_movie)
+                .build();
+        holder.imageLoader.enqueue(request);
     }
 
     @Override
@@ -54,12 +60,15 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView marathon_movie;
+        public ImageLoader imageLoader;
+        public ImageView profile_poster_movie;
 
         public ViewHolder(@NonNull View profileView) {
             super(profileView);
-            marathon_movie = (TextView) profileView.findViewById(R.id.marathon_movie);
+            imageLoader = Coil.imageLoader(profileView.getContext());
+            profile_poster_movie = (ImageView) profileView.findViewById(R.id.profile_poster_movie);
         }
     }
+
 
 }
