@@ -70,6 +70,33 @@ public class MovieDbHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    public MovieResults.ResultsBean getMovie(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query
+                (TABLE_NAME, null, TMDB_ID + "=?", new String[] {String.valueOf(id)}, null, null, null);
+
+        MovieResults.ResultsBean movie = null;
+
+        if (cursor != null && cursor.moveToFirst()) {
+            movie = new MovieResults.ResultsBean(
+                    cursor.getString(cursor.getColumnIndexOrThrow(BACKDROP_PATH)),
+                    cursor.getInt(cursor.getColumnIndexOrThrow(TMDB_ID)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(MOVIE_TITLE)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(ORIGINAL_LANGUAGE)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(MOVE_OVERVIEW)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(POSTER_PATH)),
+                    cursor.getDouble(cursor.getColumnIndexOrThrow(MOVIE_POPULARITY)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(RELEASE_DATE)),
+                    cursor.getDouble(cursor.getColumnIndexOrThrow(VOTE_AVERAGE)));
+            cursor.close();
+        }
+
+        db.close();
+
+        return movie;
+    }
+
 
     public String getTableName() {
         return TABLE_NAME;

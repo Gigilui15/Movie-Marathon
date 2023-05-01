@@ -39,7 +39,6 @@ import coil.transform.RoundedCornersTransformation;
 public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHolder> {
 
     private List<MovieResults.ResultsBean> movies;
-    private MainActivity mainActivity;
     private User user;
     ArrayList<Integer> marathon;
 
