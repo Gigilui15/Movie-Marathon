@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.mobileassignment.API.*;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobileassignment.API.ApiInterface;
 import com.example.mobileassignment.Database.User;
+import com.example.mobileassignment.Database.backend.UserDbHelper;
 import com.example.mobileassignment.MainActivity;
 import com.example.mobileassignment.R;
 import com.example.mobileassignment.databinding.FragmentDiscoverBinding;
@@ -38,6 +40,7 @@ public class DiscoverFragment extends Fragment {
     private DiscoverAdapter dAdapter;
     private RecyclerView discoverView;
     private DiscoverViewModel discoverViewModel;
+    private UserDbHelper userHelper;
     private User user;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,6 +49,7 @@ public class DiscoverFragment extends Fragment {
         View root = binding.getRoot();
         discoverView = root.findViewById(R.id.movies_list);
         user = ((MainActivity) requireActivity()).getUser();
+        userHelper = new UserDbHelper(getContext());
         setUpRecyclerView();
         fetchItems();
         return root;

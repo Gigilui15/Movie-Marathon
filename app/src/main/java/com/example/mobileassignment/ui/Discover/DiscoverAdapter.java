@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.Image;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -14,7 +15,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobileassignment.API.ApiInterface;
@@ -132,17 +138,18 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
                     MovieDbHelper movieDB = new MovieDbHelper(discoverView.getContext());
                     UserDbHelper userDB = new UserDbHelper(discoverView.getContext());
                     MovieResults.ResultsBean selectedMovie = movies.get(getAdapterPosition());
-                    //add the movie to the movie database
+
+                    // Add the movie to the movie database
                     movieDB.addMovie(selectedMovie);
-                    //add the movie ID to the User Marathon List
+
+                    // Add the movie ID to the User Marathon List
                     Log.d("marathon",marathon.toString());
                     marathon.add(selectedMovie.getId());
                     user.setMarathon(marathon);
                     userDB.updateUser(user);
                     Log.d("marathon",marathon.toString());
-                    addButton.setVisibility(View.INVISIBLE);
-                    removeButton.setVisibility(View.VISIBLE);
                 }
+
             });
             removeButton.setOnClickListener(new View.OnClickListener() {
                 //This works

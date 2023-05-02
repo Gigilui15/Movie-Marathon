@@ -81,7 +81,6 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
         public TextView date;
         public ImageView posterImage;
         public ImageLoader imageLoader;
-        public Button addButton;
         public Button removeButton;
 
         public ViewHolder(@NonNull View profileView) {

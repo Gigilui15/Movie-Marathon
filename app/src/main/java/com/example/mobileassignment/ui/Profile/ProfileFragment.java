@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mobileassignment.API.MovieResults;
 import com.example.mobileassignment.Database.User;
 import com.example.mobileassignment.Database.backend.MovieDbHelper;
+import com.example.mobileassignment.Database.backend.UserDbHelper;
 import com.example.mobileassignment.MainActivity;
 import com.example.mobileassignment.R;
 import com.example.mobileassignment.databinding.FragmentProfileBinding;
@@ -35,6 +36,7 @@ public class ProfileFragment extends Fragment {
     private User user;
     private List<Integer> faveIDs;
     MovieDbHelper dbHelper;
+    UserDbHelper userHelper;
     private ArrayList<MovieResults.ResultsBean> marathon;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,9 +44,7 @@ public class ProfileFragment extends Fragment {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         profileView = root.findViewById(R.id.grid_list);
-        profileView.setLayoutManager(new GridLayoutManager(getContext(),3));
         name_holder = root.findViewById(R.id.full_name);
-
         //getting the user from Main Activity
         user = getUser();
         //getting the list of movie ID's of the user
@@ -57,44 +57,64 @@ public class ProfileFragment extends Fragment {
         }else {
             name_holder.setText("__Profile Name__");
         }
+        userHelper = new UserDbHelper(getContext());
 
         fetchItems();
         setUpRecyclerView();
         return root;
     }
 
-        private void makeMovies(List<Integer> ids) {
-            dbHelper = new MovieDbHelper(getContext());
-            marathon = new ArrayList<MovieResults.ResultsBean>();
-            if(ids != null){
-                for (int id : ids) {
-                    MovieResults.ResultsBean movie = dbHelper.getMovie(id); // use dbHelper to call getMovie
-                    if (movie != null) {
-                        Log.d("Movie Made", "ResultsBean movie successfully created");
-                        marathon.add(movie);
-                        Log.d("Movie Added", marathon.toString());
-                    }
-                    else{
-                        marathon.add(new MovieResults.ResultsBean("Null"));
-                        Log.d("Movie not Made", "getMovie returned null or an error occurred");
-                    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Update user data from the database
+        User updatedUser = userHelper.getUser(user.getUsername(),user.getPassword()); // Replace user.getId() with your implementation
+        if (updatedUser != null) {
+            user = updatedUser;
+            // Update UI with new user data
+            name_holder.setText(user.getFullName());
+            // Get the updated list of movie IDs and create movies
+            faveIDs = user.getMarathon();
+            makeMovies(faveIDs);
+            // Update the adapter with the new movie list
+            updateMovieList((ArrayList)marathon);
+        }
+    }
+
+
+    private void makeMovies(List<Integer> ids) {
+        dbHelper = new MovieDbHelper(getContext());
+        userHelper = new UserDbHelper(getContext());
+        marathon = new ArrayList<MovieResults.ResultsBean>();
+        if(ids != null){
+            for (int id : ids) {
+                MovieResults.ResultsBean movie = dbHelper.getMovie(id); // use dbHelper to call getMovie
+                if (movie != null) {
+                    Log.d("Movie Made", "ResultsBean movie successfully created");
+                    marathon.add(movie);
+                    Log.d("Movie Added", marathon.toString());
                 }
-            }else{
-                Log.d("Empty marathon IDS", "no IDs in user's list");
+                else{
+                    marathon.add(new MovieResults.ResultsBean("Null"));
+                    Log.d("Movie not Made", "getMovie returned null or an error occurred");
+                }
             }
+        }else{
+            Log.d("Empty marathon IDS", "no IDs in user's list");
+        }
+    }
+
+    @Override
+    public void onDestroyView () {
+        super.onDestroyView();
+        binding = null;
+    }
+
+    private void fetchItems () {
+        profileViewModel.getMovies().observe(getViewLifecycleOwner(), this::updateMovieList);
         }
 
-        @Override
-        public void onDestroyView () {
-            super.onDestroyView();
-            binding = null;
-        }
-
-        private void fetchItems () {
-            profileViewModel.getMovies().observe(getViewLifecycleOwner(), this::updateMovieList);
-        }
-
-        private void updateMovieList (List < Integer > newMovieID) {
+        private void updateMovieList (List <Integer> newMovieID) {
             faveIDs.addAll(newMovieID);
             pAdapter.notifyDataSetChanged();
         }

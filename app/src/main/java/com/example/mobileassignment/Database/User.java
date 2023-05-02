@@ -3,7 +3,11 @@ package com.example.mobileassignment.Database;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+
 import com.example.mobileassignment.API.MovieResults;
+import com.example.mobileassignment.R;
 
 import java.io.Serializable;
 import java.util.ArrayList;
