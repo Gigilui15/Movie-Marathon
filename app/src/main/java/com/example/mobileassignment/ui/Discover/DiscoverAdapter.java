@@ -145,23 +145,25 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
                 }
             });
             removeButton.setOnClickListener(new View.OnClickListener() {
+                //This works
                 @Override
                 public void onClick(View v) {
-                    MovieDbHelper movieDB = new MovieDbHelper(discoverView.getContext());
                     UserDbHelper userDB = new UserDbHelper(discoverView.getContext());
                     MovieResults.ResultsBean selectedMovie = movies.get(getAdapterPosition());
-                    //add the movie to the movie database
-                    movieDB.addMovie(selectedMovie);
-                    //add the movie ID to the User Marathon List
-                    Log.d("marathon",marathon.toString());
-                    marathon.add(selectedMovie.getId());
+
+                    // remove the movie ID from User Marathon List
+                    int index = marathon.indexOf(selectedMovie.getId());
+                    if (index != -1) {
+                        marathon.remove(index);
+                    }
                     user.setMarathon(marathon);
                     userDB.updateUser(user);
-                    Log.d("marathon",marathon.toString());
+                    Log.d("marathon", marathon.toString());
                     addButton.setVisibility(View.VISIBLE);
                     removeButton.setVisibility(View.INVISIBLE);
                 }
             });
+
         }
     }
 
