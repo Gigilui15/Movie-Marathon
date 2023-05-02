@@ -2,6 +2,7 @@ package com.example.mobileassignment.ui.Profile;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobileassignment.API.ApiInterface;
 import com.example.mobileassignment.API.MovieResults;
+import com.example.mobileassignment.Database.backend.MovieDbHelper;
+import com.example.mobileassignment.Database.backend.UserDbHelper;
 import com.example.mobileassignment.MovieDetails;
 import com.example.mobileassignment.R;
 
@@ -55,6 +58,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
         rating.setText(String.valueOf(voteAverage));
         TextView date = holder.date ;
         date.setText(movie.getRelease_date());
+        holder.removeButton.setVisibility(View.VISIBLE);
 
         ImageRequest request = new ImageRequest.Builder(holder.itemView.getContext())
                 .data(ApiInterface.POSTER_BASE_URL + movie.getPoster_path())
@@ -78,6 +82,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
         public ImageView posterImage;
         public ImageLoader imageLoader;
         public Button addButton;
+        public Button removeButton;
 
         public ViewHolder(@NonNull View profileView) {
             super(profileView);
@@ -86,7 +91,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
             date = profileView.findViewById(R.id.movie_release);
             posterImage = profileView.findViewById(R.id.movie_poster);
             imageLoader = Coil.imageLoader(profileView.getContext());
-            addButton = profileView.findViewById(R.id.add_button);
+            removeButton = profileView.findViewById(R.id.remove_button);
 
             profileView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -99,6 +104,12 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
                     intent.putExtra("movie", (Serializable) selectedMovie);
                     // Launch the activity
                     v.getContext().startActivity(intent);
+                }
+            });
+            removeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Logic to remove selected movie's ID from user's list
                 }
             });
         }

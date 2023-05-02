@@ -68,6 +68,15 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
         TextView date = holder.date ;
         date.setText(mv.getRelease_date());
 
+        //checking if movie is in list
+        if (marathon.contains(mv.getId())) {
+            holder.addButton.setVisibility(View.INVISIBLE);
+            holder.removeButton.setVisibility(View.VISIBLE);
+        } else {
+            holder.addButton.setVisibility(View.VISIBLE);
+            holder.removeButton.setVisibility(View.INVISIBLE);
+        }
+
         ImageRequest request = new ImageRequest.Builder(holder.itemView.getContext())
                 .data(ApiInterface.POSTER_BASE_URL + mv.getPoster_path())
                 .placeholder(R.drawable.poster_placeholder) // add a placeholder image if needed
@@ -90,6 +99,7 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
         public ImageView posterImage;
         public ImageLoader imageLoader;
         public Button addButton;
+        public Button removeButton;
 
         public ViewHolder(final View discoverView) {
             super(discoverView);
@@ -99,6 +109,7 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
             posterImage = discoverView.findViewById(R.id.movie_poster);
             imageLoader = Coil.imageLoader(discoverView.getContext());
             addButton = discoverView.findViewById(R.id.add_button);
+            removeButton = discoverView.findViewById(R.id.remove_button);
 
             //Movie Card opening Movie Details
             discoverView.setOnClickListener(new View.OnClickListener() {
@@ -129,6 +140,26 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
                     user.setMarathon(marathon);
                     userDB.updateUser(user);
                     Log.d("marathon",marathon.toString());
+                    addButton.setVisibility(View.INVISIBLE);
+                    removeButton.setVisibility(View.VISIBLE);
+                }
+            });
+            removeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    MovieDbHelper movieDB = new MovieDbHelper(discoverView.getContext());
+                    UserDbHelper userDB = new UserDbHelper(discoverView.getContext());
+                    MovieResults.ResultsBean selectedMovie = movies.get(getAdapterPosition());
+                    //add the movie to the movie database
+                    movieDB.addMovie(selectedMovie);
+                    //add the movie ID to the User Marathon List
+                    Log.d("marathon",marathon.toString());
+                    marathon.add(selectedMovie.getId());
+                    user.setMarathon(marathon);
+                    userDB.updateUser(user);
+                    Log.d("marathon",marathon.toString());
+                    addButton.setVisibility(View.VISIBLE);
+                    removeButton.setVisibility(View.INVISIBLE);
                 }
             });
         }

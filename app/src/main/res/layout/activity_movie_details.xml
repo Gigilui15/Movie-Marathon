@@ -20,7 +20,7 @@
             android:id="@+id/backdrop"
             android:layout_width="404dp"
             android:layout_height="322dp"
-            android:alpha="0.1"
+            android:alpha="0.3"
             android:scaleType="centerCrop"
             android:src="@drawable/poster_placeholder"
             app:layout_constraintBottom_toBottomOf="parent"

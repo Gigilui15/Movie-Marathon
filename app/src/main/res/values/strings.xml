@@ -4,4 +4,5 @@
     <string name="title_dashboard">Discover</string>
     <string name="title_notifications">Profile</string>
     <string name="movie_button">Add to List</string>
+    <string name="remove_button">Remove from List</string>
 </resources>
