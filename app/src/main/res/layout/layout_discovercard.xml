@@ -97,6 +97,7 @@
             android:text="@string/movie_button"
             app:backgroundTint="@color/button_green"
             app:cornerRadius="20dp"
+            android:textSize="11sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/movie_release"
             app:layout_constraintHorizontal_bias="0.093"
