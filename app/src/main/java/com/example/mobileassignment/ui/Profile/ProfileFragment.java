@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -41,6 +42,7 @@ public class ProfileFragment extends Fragment {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         profileView = root.findViewById(R.id.grid_list);
+        profileView.setLayoutManager(new GridLayoutManager(getContext(),3));
         name_holder = root.findViewById(R.id.full_name);
 
         //getting the user from Main Activity
@@ -73,7 +75,7 @@ public class ProfileFragment extends Fragment {
                         Log.d("Movie Added", marathon.toString());
                     }
                     else{
-                        marathon.add(new MovieResults.ResultsBean("FUCK"));
+                        marathon.add(new MovieResults.ResultsBean("Null"));
                         Log.d("Movie not Made", "getMovie returned null or an error occurred");
                     }
                 }

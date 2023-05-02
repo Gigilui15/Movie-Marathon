@@ -19,8 +19,8 @@
 
         <ImageView
             android:id="@+id/backdrop"
-            android:layout_width="match_parent"
-            android:layout_height="322dp"
+            android:layout_width="409dp"
+            android:layout_height="299dp"
             android:alpha="0.6"
             android:scaleType="centerCrop"
             android:src="@drawable/loginbk"
@@ -61,13 +61,14 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/grid_list"
-        android:layout_width="366dp"
-        android:layout_height="384dp"
+        android:layout_width="372dp"
+        android:layout_height="409dp"
         android:layout_marginTop="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgLayout"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
