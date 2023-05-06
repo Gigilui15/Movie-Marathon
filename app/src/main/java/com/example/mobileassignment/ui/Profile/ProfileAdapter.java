@@ -71,6 +71,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
                 .target(holder.posterImage)
                 .build();
         holder.imageLoader.enqueue(request);
+
     }
 
     @Override
@@ -85,6 +86,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
         public ImageView posterImage;
         public ImageLoader imageLoader;
         public Button removeButton;
+        public Button addButton;
 
         public ViewHolder(@NonNull View profileView) {
             super(profileView);
@@ -94,6 +96,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
             posterImage = profileView.findViewById(R.id.movie_poster);
             imageLoader = Coil.imageLoader(profileView.getContext());
             removeButton = profileView.findViewById(R.id.remove_button);
+            addButton = profileView.findViewById(R.id.add_button);
 
             profileView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -111,8 +114,28 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
             removeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    UserDbHelper userDB = new UserDbHelper(profileView.getContext());
+                    MovieResults.ResultsBean selectedMovie = marathon.get(getAdapterPosition());
+                    ArrayList<Integer> userList = user.getMarathon();
+
+                    // remove the movie ID from User Marathon List
+                    int index = userList.indexOf(selectedMovie.getId());
+                    if (index != -1) {
+                        userList.remove(index);
+                        removeButton.setVisibility(View.INVISIBLE);
+                        addButton.setVisibility(View.INVISIBLE);
+                    }
+
+                    user.setMarathon(userList);
+                    userDB.updateUser(user);
+
+                    // remove the item from the list and notify the adapter
+                    marathon.remove(getAdapterPosition());
+                    notifyItemRemoved(getAdapterPosition());
                 }
             });
+
+
 
         }
     }

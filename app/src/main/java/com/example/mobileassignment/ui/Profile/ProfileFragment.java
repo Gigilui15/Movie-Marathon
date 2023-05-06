@@ -36,6 +36,7 @@ public class ProfileFragment extends Fragment {
     MovieDbHelper dbHelper;
     UserDbHelper userHelper;
     private ArrayList<MovieResults.ResultsBean> marathon;
+    private TextView noMovies;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
@@ -54,13 +55,20 @@ public class ProfileFragment extends Fragment {
         }else {
             name_holder.setText("__Profile Name__");
         }
-
         //getting the list of movie ID's of the user
         List<Integer> faveIDs = updatedUser.getMarathon();
         //Method to convert movieIDs into Movie(ResultsBean) objects
         ArrayList<MovieResults.ResultsBean> live = makeMovies(faveIDs);
         fetchItems();
         setUpRecyclerView(live);
+
+        noMovies = root.findViewById(R.id.noMoviesText);
+        if (live.size() == 0) {
+            noMovies.setVisibility(View.VISIBLE);
+        }else {
+            noMovies.setVisibility(View.INVISIBLE);
+        }
+
         return root;
     }
 
