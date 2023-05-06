@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobileassignment.API.ApiInterface;
 import com.example.mobileassignment.API.MovieResults;
+import com.example.mobileassignment.Database.User;
 import com.example.mobileassignment.Database.backend.MovieDbHelper;
 import com.example.mobileassignment.Database.backend.UserDbHelper;
 import com.example.mobileassignment.MovieDetails;
@@ -33,9 +34,11 @@ import coil.transform.RoundedCornersTransformation;
 public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHolder> {
 
     private ArrayList<MovieResults.ResultsBean> marathon;
+    private User user;
 
-    public ProfileAdapter(ArrayList<MovieResults.ResultsBean> marathon){
+    public ProfileAdapter(ArrayList<MovieResults.ResultsBean> marathon, User user){
         this.marathon = marathon;
+        this.user = user;
     }
 
     @NonNull
@@ -108,9 +111,9 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
             removeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //Logic to remove selected movie's ID from user's list
                 }
             });
+
         }
     }
 

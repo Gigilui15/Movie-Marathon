@@ -64,7 +64,7 @@ public class DiscoverFragment extends Fragment {
         discoverViewModel.getMovies().observe(getViewLifecycleOwner(), movieList ->{dAdapter.updateMovies(movieList);});
     }
     private void setUpRecyclerView() {
-        dAdapter = new DiscoverAdapter(new ArrayList<>(), user);
+        dAdapter = new DiscoverAdapter(new ArrayList<>(), user, userHelper);
         discoverView.setAdapter(dAdapter);
         discoverView.setLayoutManager(new LinearLayoutManager(discoverView.getContext()));
     }

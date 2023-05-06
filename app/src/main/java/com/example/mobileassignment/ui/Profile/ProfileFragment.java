@@ -10,7 +10,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,8 +32,7 @@ public class ProfileFragment extends Fragment {
     private RecyclerView profileView;
     private ProfileViewModel profileViewModel;
     private TextView name_holder;
-    private User user;
-    private List<Integer> faveIDs;
+    private User updatedUser;
     MovieDbHelper dbHelper;
     UserDbHelper userHelper;
     private ArrayList<MovieResults.ResultsBean> marathon;
@@ -45,44 +43,28 @@ public class ProfileFragment extends Fragment {
         View root = binding.getRoot();
         profileView = root.findViewById(R.id.grid_list);
         name_holder = root.findViewById(R.id.full_name);
+        userHelper = new UserDbHelper(getContext());
         //getting the user from Main Activity
-        user = getUser();
-        //getting the list of movie ID's of the user
-        this.faveIDs = user.getMarathon();
-        //Method to convert movieIDs into Movie(ResultsBean) objects
-        makeMovies(faveIDs);
 
-        if (user != null) {
-            name_holder.setText(user.getFullName());
+        User user = getUser();
+        updatedUser = userHelper.getUser(user.getUsername(),user.getPassword());
+
+        if (updatedUser != null) {
+            name_holder.setText(updatedUser.getFullName());
         }else {
             name_holder.setText("__Profile Name__");
         }
-        userHelper = new UserDbHelper(getContext());
 
+        //getting the list of movie ID's of the user
+        List<Integer> faveIDs = updatedUser.getMarathon();
+        //Method to convert movieIDs into Movie(ResultsBean) objects
+        ArrayList<MovieResults.ResultsBean> live = makeMovies(faveIDs);
         fetchItems();
-        setUpRecyclerView();
+        setUpRecyclerView(live);
         return root;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        // Update user data from the database
-        User updatedUser = userHelper.getUser(user.getUsername(),user.getPassword()); // Replace user.getId() with your implementation
-        if (updatedUser != null) {
-            user = updatedUser;
-            // Update UI with new user data
-            name_holder.setText(user.getFullName());
-            // Get the updated list of movie IDs and create movies
-            faveIDs = user.getMarathon();
-            makeMovies(faveIDs);
-            // Update the adapter with the new movie list
-            updateMovieList((ArrayList)marathon);
-        }
-    }
-
-
-    private void makeMovies(List<Integer> ids) {
+    private ArrayList<MovieResults.ResultsBean> makeMovies(List<Integer> ids) {
         dbHelper = new MovieDbHelper(getContext());
         userHelper = new UserDbHelper(getContext());
         marathon = new ArrayList<MovieResults.ResultsBean>();
@@ -102,6 +84,7 @@ public class ProfileFragment extends Fragment {
         }else{
             Log.d("Empty marathon IDS", "no IDs in user's list");
         }
+        return marathon;
     }
 
     @Override
@@ -115,12 +98,11 @@ public class ProfileFragment extends Fragment {
         }
 
         private void updateMovieList (List <Integer> newMovieID) {
-            faveIDs.addAll(newMovieID);
             pAdapter.notifyDataSetChanged();
         }
 
-        private void setUpRecyclerView () {
-            pAdapter = new ProfileAdapter(marathon);
+        private void setUpRecyclerView (ArrayList<MovieResults.ResultsBean> movies) {
+            pAdapter = new ProfileAdapter(marathon,updatedUser);
             profileView.setAdapter(pAdapter);
             profileView.setLayoutManager(new LinearLayoutManager(profileView.getContext()));
         }

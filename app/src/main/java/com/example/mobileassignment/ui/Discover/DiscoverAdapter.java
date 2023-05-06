@@ -46,12 +46,16 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
 
     private List<MovieResults.ResultsBean> movies;
     private User user;
+    private UserDbHelper userDbHelper;
     ArrayList<Integer> marathon;
 
-    public DiscoverAdapter(List<MovieResults.ResultsBean> movies, User user) {
+    public DiscoverAdapter(List<MovieResults.ResultsBean> movies, User user, UserDbHelper userDbHelper) {
         this.movies = movies;
         this.user = user;
-        this.marathon = user.getMarathon();
+        this.userDbHelper = userDbHelper;
+        String username = user.getUsername();
+        String pwd = user.getPassword();
+        marathon = userDbHelper.getUser(username,pwd).getMarathon();
     }
 
     @NonNull
@@ -132,6 +136,7 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
                 }
             });
             //Add to List Click Function
+            //Add to List Click Function
             addButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -142,15 +147,23 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
                     // Add the movie to the movie database
                     movieDB.addMovie(selectedMovie);
 
+                    // Check if the movie ID already exists in the User Marathon List
+                    if (marathon.contains(selectedMovie.getId())) {
+                        Toast.makeText(v.getContext(), "This movie is already in your list", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
                     // Add the movie ID to the User Marathon List
-                    Log.d("marathon",marathon.toString());
+                    marathon = userDB.getUser(user.getUsername(), user.getPassword()).getMarathon();
                     marathon.add(selectedMovie.getId());
                     user.setMarathon(marathon);
                     userDB.updateUser(user);
-                    Log.d("marathon",marathon.toString());
+                    addButton.setVisibility(View.INVISIBLE);
+                    removeButton.setVisibility(View.VISIBLE);
                 }
-
             });
+
+
             removeButton.setOnClickListener(new View.OnClickListener() {
                 //This works
                 @Override
@@ -165,11 +178,16 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
                     }
                     user.setMarathon(marathon);
                     userDB.updateUser(user);
-                    Log.d("marathon", marathon.toString());
+
+                    // Update the user's marathon list in the current adapter
+                    marathon = user.getMarathon();
+                    notifyDataSetChanged();
+
                     addButton.setVisibility(View.VISIBLE);
                     removeButton.setVisibility(View.INVISIBLE);
                 }
             });
+
 
         }
     }

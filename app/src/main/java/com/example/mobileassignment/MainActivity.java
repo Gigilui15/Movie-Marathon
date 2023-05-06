@@ -40,9 +40,22 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(R.id.navigation_dashboard, R.id.navigation_profile).build();
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(R.id.navigation_profile, R.id.navigation_dashboard).build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
+        navController.navigate(R.id.navigation_profile); // navigate to profile fragment
         NavigationUI.setupWithNavController(binding.navView, navController);
+        // listen to bottom navigation item selection
+        navView.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.navigation_profile:
+                    navController.navigate(R.id.navigation_profile);
+                    break;
+                case R.id.navigation_dashboard:
+                    navController.navigate(R.id.navigation_dashboard);
+                    break;
+            }
+            return true;
+        });
 
     }
 
