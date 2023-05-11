@@ -1,41 +1,24 @@
 package com.example.mobileassignment.ui.Discover;
 
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
-
-import com.example.mobileassignment.API.*;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mobileassignment.API.ApiInterface;
 import com.example.mobileassignment.Database.User;
 import com.example.mobileassignment.Database.backend.UserDbHelper;
 import com.example.mobileassignment.MainActivity;
 import com.example.mobileassignment.R;
 import com.example.mobileassignment.databinding.FragmentDiscoverBinding;
-
 import java.util.ArrayList;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DiscoverFragment extends Fragment {
-
     private @NonNull FragmentDiscoverBinding binding;
     private DiscoverAdapter dAdapter;
     private RecyclerView discoverView;
@@ -44,14 +27,28 @@ public class DiscoverFragment extends Fragment {
     private User user;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Create an instance of DiscoverViewModel using ViewModelProvider
         discoverViewModel = new ViewModelProvider(this).get(DiscoverViewModel.class);
+
+        // Inflate the layout for this fragment using ViewBinding
         binding = FragmentDiscoverBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        // Get references to the views
         discoverView = root.findViewById(R.id.movies_list);
+
+        // Get the logged-in user from the MainActivity
         user = ((MainActivity) requireActivity()).getUser();
+
+        // Create an instance of UserDbHelper for database operations
         userHelper = new UserDbHelper(getContext());
+
+        // Set up the RecyclerView
         setUpRecyclerView();
+
+        // Fetch the items (movies) from the DiscoverViewModel
         fetchItems();
+
         return root;
     }
 
@@ -60,10 +57,16 @@ public class DiscoverFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
     private void fetchItems() {
-        discoverViewModel.getMovies().observe(getViewLifecycleOwner(), movieList ->{dAdapter.updateMovies(movieList);});
+        // Observe the movie list from the DiscoverViewModel and update the adapter
+        discoverViewModel.getMovies().observe(getViewLifecycleOwner(), movieList -> {
+            dAdapter.updateMovies(movieList);
+        });
     }
+
     private void setUpRecyclerView() {
+        // Create an instance of DiscoverAdapter and set it to the RecyclerView
         dAdapter = new DiscoverAdapter(new ArrayList<>(), user, userHelper);
         discoverView.setAdapter(dAdapter);
         discoverView.setLayoutManager(new LinearLayoutManager(discoverView.getContext()));

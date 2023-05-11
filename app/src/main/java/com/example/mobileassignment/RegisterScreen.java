@@ -12,21 +12,19 @@ import android.widget.Toast;
 
 import com.example.mobileassignment.Database.User;
 import com.example.mobileassignment.Database.backend.UserDbHelper;
-import com.example.mobileassignment.Database.backend.UserDbHelper;
 
 import java.util.ArrayList;
 
 public class RegisterScreen extends AppCompatActivity {
-
-    EditText user,pwd,name;
+    EditText user, pwd, name;
     Button register;
     TextView header;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_screen);
 
+        // Initialize views
         name = findViewById(R.id.Rfullname);
         user = findViewById(R.id.Rusername);
         pwd = findViewById(R.id.Rpassword);
@@ -34,20 +32,30 @@ public class RegisterScreen extends AppCompatActivity {
         header = findViewById(R.id.Rregister);
     }
 
-    public void registerClick(View view){
+    public void registerClick(View view) {
+        // Create an instance of the UserDbHelper class
         UserDbHelper dbHelper = new UserDbHelper(this);
 
+        // Get the values entered by the user
         String fullNameValue = name.getText().toString();
         String usernameValue = user.getText().toString();
         String passwordValue = pwd.getText().toString();
 
-        if(user.length() == 0 || pwd.length() == 0 || name.length() == 0){
+        // Check if all fields are filled
+        if (user.length() == 0 || pwd.length() == 0 || name.length() == 0) {
             Toast.makeText(this, "Please Fill All Fields", Toast.LENGTH_SHORT).show();
-        }else {
+        } else {
+            // Create a new User object
             ArrayList<Integer> fave = new ArrayList<>();
             User user = new User(fullNameValue, usernameValue, passwordValue);
+
+            // Add the user to the database
             long id = dbHelper.addUser(user);
+
+            // Display a toast message to indicate successful account creation
             Toast.makeText(this, "Account Created", Toast.LENGTH_SHORT).show();
+
+            // Start the MainActivity with the registered user
             Intent intent = new Intent(this, MainActivity.class);
             Bundle bundle = new Bundle();
             bundle.putSerializable("user", user);
@@ -55,5 +63,4 @@ public class RegisterScreen extends AppCompatActivity {
             startActivity(intent);
         }
     }
-
 }

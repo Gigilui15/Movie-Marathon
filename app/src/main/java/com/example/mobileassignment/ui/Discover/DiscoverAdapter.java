@@ -2,12 +2,7 @@ package com.example.mobileassignment.ui.Discover;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.media.Image;
-import android.os.Build;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -15,12 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobileassignment.API.ApiInterface;
@@ -28,12 +18,10 @@ import com.example.mobileassignment.API.MovieResults;
 import com.example.mobileassignment.Database.User;
 import com.example.mobileassignment.Database.backend.MovieDbHelper;
 import com.example.mobileassignment.Database.backend.UserDbHelper;
-import com.example.mobileassignment.MainActivity;
 import com.example.mobileassignment.MovieDetails;
 import com.example.mobileassignment.R;
 
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -127,7 +115,6 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
                 public void onClick(View v) {
                     // Get the selected movie
                     MovieResults.ResultsBean selectedMovie = movies.get(getAdapterPosition());
-
                     // Create an Intent to launch the MovieDetails activity
                     Intent intent = new Intent(v.getContext(), MovieDetails.class);
                     intent.putExtra("movie", (Serializable) selectedMovie);
@@ -152,7 +139,6 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
                         Toast.makeText(v.getContext(), "This movie is already in your list", Toast.LENGTH_SHORT).show();
                         return;
                     }
-
                     // Add the movie ID to the User Marathon List
                     marathon = userDB.getUser(user.getUsername(), user.getPassword()).getMarathon();
                     marathon.add(selectedMovie.getId());
@@ -162,7 +148,6 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
                     removeButton.setVisibility(View.VISIBLE);
                 }
             });
-
 
             removeButton.setOnClickListener(new View.OnClickListener() {
                 //This works
@@ -187,11 +172,8 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
                     removeButton.setVisibility(View.INVISIBLE);
                 }
             });
-
-
         }
     }
-
     public void updateMovies (List<MovieResults.ResultsBean> newMovies){
         movies.clear();
         movies.addAll(newMovies);

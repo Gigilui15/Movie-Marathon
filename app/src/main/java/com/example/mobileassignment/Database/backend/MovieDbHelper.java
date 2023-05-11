@@ -31,6 +31,7 @@ public class MovieDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        // Create the movies table
         String query = "CREATE TABLE " + TABLE_NAME +
                 " (" + TMDB_ID + " INTEGER PRIMARY KEY, " +
                 MOVIE_TITLE + " REAL, " +
@@ -44,7 +45,12 @@ public class MovieDbHelper extends SQLiteOpenHelper {
         db.execSQL(query);
     }
 
-
+    /**
+     * Add a movie to the database.
+     *
+     * @param movie The movie to be added.
+     * @return The ID of the inserted row.
+     */
     public long addMovie(MovieResults.ResultsBean movie) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -66,19 +72,27 @@ public class MovieDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        // Drop the existing movies table and recreate it
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
 
+    /**
+     * Get a movie from the database based on its ID.
+     *
+     * @param id The ID of the movie.
+     * @return The movie with the specified ID, or null if not found.
+     */
     public MovieResults.ResultsBean getMovie(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query
-                (TABLE_NAME, null, TMDB_ID + "=?", new String[] {String.valueOf(id)}, null, null, null);
+                (TABLE_NAME, null, TMDB_ID + "=?", new String[]{String.valueOf(id)}, null, null, null);
 
         MovieResults.ResultsBean movie = null;
 
         if (cursor != null && cursor.moveToFirst()) {
+            // Create a new MovieResults.ResultsBean object with the retrieved data from the cursor
             movie = new MovieResults.ResultsBean(
                     cursor.getString(cursor.getColumnIndexOrThrow(BACKDROP_PATH)),
                     cursor.getInt(cursor.getColumnIndexOrThrow(TMDB_ID)),
@@ -97,43 +111,92 @@ public class MovieDbHelper extends SQLiteOpenHelper {
         return movie;
     }
 
-
+    /**
+     * Get the table name in the database.
+     *
+     * @return The table name.
+     */
     public String getTableName() {
         return TABLE_NAME;
     }
 
+    /**
+     * Get the column name for TMDB_ID in the database.
+     *
+     * @return The column name for TMDB_ID.
+     */
     public String getTmdbId() {
         return TMDB_ID;
     }
 
+    /**
+     * Get the column name for MOVIE_TITLE in the database.
+     *
+     * @return The column name for MOVIE_TITLE.
+     */
     public String getMovieTitle() {
         return MOVIE_TITLE;
     }
 
+    /**
+     * Get the column name for MOVE_OVERVIEW in the database.
+     *
+     * @return The column name for MOVE_OVERVIEW.
+     */
     public String getMoveOverview() {
         return MOVE_OVERVIEW;
     }
 
+    /**
+     * Get the column name for BACKDROP_PATH in the database.
+     *
+     * @return The column name for BACKDROP_PATH.
+     */
     public String getBackdropPath() {
         return BACKDROP_PATH;
     }
 
+    /**
+     * Get the column name for ORIGINAL_LANGUAGE in the database.
+     *
+     * @return The column name for ORIGINAL_LANGUAGE.
+     */
     public String getOriginalLanguage() {
         return ORIGINAL_LANGUAGE;
     }
 
+    /**
+     * Get the column name for POSTER_PATH in the database.
+     *
+     * @return The column name for POSTER_PATH.
+     */
     public String getPosterPath() {
         return POSTER_PATH;
     }
 
+    /**
+     * Get the column name for MOVIE_POPULARITY in the database.
+     *
+     * @return The column name for MOVIE_POPULARITY.
+     */
     public String getMoviePopularity() {
         return MOVIE_POPULARITY;
     }
 
+    /**
+     * Get the column name for RELEASE_DATE in the database.
+     *
+     * @return The column name for RELEASE_DATE.
+     */
     public String getReleaseDate() {
         return RELEASE_DATE;
     }
 
+    /**
+     * Get the column name for VOTE_AVERAGE in the database.
+     *
+     * @return The column name for VOTE_AVERAGE.
+     */
     public String getVoteAverage() {
         return VOTE_AVERAGE;
     }
