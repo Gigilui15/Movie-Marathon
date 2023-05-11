@@ -67,16 +67,9 @@ public class ProfileFragment extends Fragment {
         // Convert movie IDs into MovieResults.ResultsBean objects
         ArrayList<MovieResults.ResultsBean> live = makeMovies(faveIDs);
 
-        // Fetch the items (movies) from the ProfileViewModel
         fetchItems();
         // Set up the RecyclerView with the movies list
         setUpRecyclerView(live);
-
-        if (live.size() == 0) {
-            noMovies.setVisibility(View.VISIBLE);
-        } else {
-            noMovies.setVisibility(View.INVISIBLE);
-        }
 
         return root;
     }
@@ -119,6 +112,11 @@ public class ProfileFragment extends Fragment {
 
     private void setUpRecyclerView(ArrayList<MovieResults.ResultsBean> movies) {
         // Set up the RecyclerView with the provided list of movies
+        if (movies.size() == 0) {
+            noMovies.setVisibility(View.VISIBLE);
+        } else {
+            noMovies.setVisibility(View.INVISIBLE);
+        }
         pAdapter = new ProfileAdapter(marathon, updatedUser);
         profileView.setAdapter(pAdapter);
         profileView.setLayoutManager(new LinearLayoutManager(profileView.getContext()));
